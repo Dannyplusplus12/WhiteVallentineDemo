@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+:root {
+
+}
+
+
+/* @font-face {
+    font-family: Sansita;
+    src: url(./font/SansitaSwashed.ttf);
+} */
+
+
+html {
+    font-family: Pangolin;
+    scroll-behavior: smooth;
+    color: white;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
