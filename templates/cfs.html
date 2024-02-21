@@ -2,18 +2,30 @@
 {% block title %} Trang chủ {% endblock %}
 {% block content %}
 <div id="app">
-    <div>
-        <h3>to: Bạn Linh badass</h3>
-        <p>Mình thích bạn lâu r huhu, cho mình xin only à nhầm in4 bạn đi</p>
-        <h3>from: Huy gầy</h3>
-    </div>
 
+    {% for post in posts %}
     <div>
-        <h3>to: Bạn Hiền chuppychuppy</h3>
-        <p>Bạn làm mình nhớ đến mẹ mình vì mẹ mình cũng béo như vậy, bạn có thể làm mommy của mình không ;-;</p>
-        <h3>from: Quý no monney</h3>
+        <h3>{{ post.to }}</h3>
+        <p>{{ post.content }}</p>
+        <h3>{{ post.author }}</h3>
     </div>
+    {% endfor %}
+
 
     <button type="button">Tạo lời nhắn!!!</button>
+
+    <form action action="{{ url_for('cfs') }}" method='POST'>
+        <div style="display: flex; flex-direction: column;">
+            <label for="from">Từ:</label>
+            <input type="text" id="from" name="from" value="">
+            <label for="to">Gởi đến:</label>
+            <input type="text" id="to" name="to" value="">
+            <label for="content">Nhập nội dung:</label>
+            <textarea id="content" name="content"></textarea>
+            <div>
+                <button type="submit">Tạo</button>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}

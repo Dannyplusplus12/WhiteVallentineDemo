@@ -8,6 +8,13 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='animate.css') }}">
 <body>
     {% block content %}{% endblock %}
+    
+    <script src="../static/particles.min.js"></script>
+    <script>
+        particlesJS.load('app', '../static/particles.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+    </script>
     <script src="../static/main.js"></script>
 </body>
 </html>

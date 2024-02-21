@@ -1,12 +1,23 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
+from flask_sqlalchemy import SQLAlchemy
 
+
+db = SQLAlchemy()
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sql'
+db.init_app(app)
 
-async def get_data():
-    for i in range(100000000):
-        pass
-    return "we do have something"
+from sqlalchemy.sql import func
 
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String)
+    content = db.Column(db.String)
+    to = db.Column(db.String)
+
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def hello_world():
@@ -19,10 +30,21 @@ def choose():
     return render_template("choose.html")
 
 
-@app.route('/cfs')
+@app.route('/cfs', methods=['GET', 'POST'])
 def cfs():
+    if request.method == 'POST':
+        author = request.form['from']
+        to = request.form['to']
+        content = request.form['content']
 
-    return render_template("cfs.html")
+        new_post = Post(author=author, to=to, content=content)
+        db.session.add(new_post)
+        db.session.commit()
+
+
+    posts = Post.query.all()
+
+    return render_template("cfs.html", posts=posts)
 
 @app.route('/create')
 def create():
