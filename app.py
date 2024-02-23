@@ -1,9 +1,10 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
 db = SQLAlchemy()
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4232Q8z\n\xecsd]/'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sql'
 db.init_app(app)
 
@@ -14,7 +15,7 @@ class Post(db.Model):
     author = db.Column(db.String)
     content = db.Column(db.String)
     to = db.Column(db.String)
-
+    status = db.Column(db.String)
 
 with app.app_context():
     db.create_all()
@@ -37,9 +38,18 @@ def cfs():
         to = request.form['to']
         content = request.form['content']
 
-        new_post = Post(author=author, to=to, content=content)
+        c_post = Post.query.filter_by(content=content).first()
+        if Post.query.filter_by(author=author, to=to, content=content).first() in Post.query.all():
+            flash("Lời nhắn của bạn đã bị trùng lặp", "danger")
+            return redirect(url_for('cfs'))
+
+        new_post = Post(author=author, to=to, content=content, status='wait')
         db.session.add(new_post)
         db.session.commit()
+
+        flash("Lời nhắn của bạn đang chờ được duyệt", "good")
+        return redirect(url_for('cfs'))
+
 
 
     posts = Post.query.all()
@@ -51,7 +61,15 @@ def create():
 
     return render_template("create.html")
 
+@app.route('/daylatrangadminbaomatnhatthegioi')
+def admin():
 
+    return render_template("admin.html")
+
+@app.route('/dowload_database')
+def dl_database():
+
+    return send_from_directory(directory='instance', path=f"database.sql", as_attachment=True)
 
 
 if __name__ == '__main__':

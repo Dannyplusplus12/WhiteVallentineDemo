@@ -9,6 +9,35 @@
 
 }
 
+.flashes {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.flash {
+    width: 512px;
+    padding: 16px;
+    margin: 8px;
+    max-width: 90%;
+    cursor: pointer;
+}
+
+.flash.danger {
+    color: rgb(255, 56, 56);
+    border-left: 4px solid rgb(255, 56, 56);
+    background-color:  rgba(255, 56, 56, 0.2);
+}
+
+.flash.good {
+    color: rgb(46, 201, 69);
+    border-left: 4px solid rgb(46, 201, 69);
+    background-color: rgba(46, 201, 69, 0.2);
+}
+
+
+
+
 .particles-js-canvas-el {
     width: 100%;
     height: 100%;
@@ -23,6 +52,145 @@
     cursor: pointer;
 }
 
+.button-53 {
+    background-color: #3DD1E7;
+    border: 0 solid #E5E7EB;
+    box-sizing: border-box;
+    color: #000000;
+    display: flex;
+    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.75rem;
+    padding: .75rem 1.65rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none #000000 solid;
+    text-decoration-thickness: auto;
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(-2deg);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-53.danger {
+    background-color: #F32013;
+}
+
+.button-53.danger svg {
+    width: 28px;
+    height: 28px;
+}
+
+.button-53:focus {
+    outline: 0;
+}
+
+.button-53:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #000000;
+    bottom: 4px;
+    left: 4px;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+}
+
+.button-53:hover:after {
+    bottom: 2px;
+    left: 2px;
+}
+
+/* Supper fancy input */
+
+.label {
+    --border: rgba(66, 66, 66, 0.733);
+    --bglabel: rgba(120,120,120,1);
+    --bginput: rgba(255,255,255,1);
+    /* --color-light: rgb(98, 0, 255); */
+    /* --color-light-a: rgb(14, 183, 235); */
+    --color-light: #3DD1E7;
+    --color-light-a: #56e8ff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content;
+    background: var(--bglabel);
+    position: relative;
+    font-size: 16px;
+    /* font-style: bold; */
+    font-weight: 600;
+    transition: all .3s ease-out;
+}
+
+.label > .label-title {
+    border: 1px solid var(--color-light);
+    color: var(--color-light);
+    box-shadow: 0 2px 2px rgba(120,120,120,.25);
+    padding: .25em .5em;
+    background-color: var(--bginput);
+    grid-column: 1/span 1;
+    grid-row: 1/span 1;
+    position: relative;
+    border-radius: 4px;
+    translate: 10px -10px;
+    transition: all .5s ease-out .5s;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.label:focus .input,
+.label:focus-within .input {
+    background-color: var(--bginput);
+    padding: 1em;
+    color: var(--color-light);
+    border: 2px solid var(--color-light);
+    outline: 2px solid var(--color-light);
+    outline-offset: -2px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(98, 0, 255, .25), 0 -5px 20px rgba(98, 0, 255,.1);
+    scale: 1.1;
+    transition: all .5s cubic-bezier(0,1.46,1,1.62) .3s;
+}
+
+.label:focus,
+.label:focus-within .label-title {
+    translate: 10px -20px;
+    border-radius: 4px 4px 0 0;
+    z-index: 0;
+    transition: all .3s cubic-bezier(0,1.46,1,1.62);
+}
+
+.input {
+    appearance: none;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid var(--color-light);
+    border-left: 2px solid transparent;
+    background-color: var(--bginput);
+    caret-color: var(--color-light);
+    padding: 1.25em 1em .25em;
+    outline: 0px solid var(--color-light);
+    grid-column: 1/-1;
+    grid-row: 1 / -1;
+    position: relative;
+    transition: all .3s cubic-bezier(.5,.6,.5,.62);
+    z-index: 0;
+    font-size: 16px;
+}
+
+.input, 
+.input::placeholder {
+    color: var(--color-light-a);
+}
+
+
+/*  */
+
 
 @font-face {
     font-family: NN;
@@ -33,6 +201,10 @@
     font-family: NN;
 }
 
+
+.none {
+    display: none;
+}
 
 html {
     font-family: Pangolin;
@@ -49,7 +221,7 @@ body {
 
 #app {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
     overflow-x: hidden;
 }

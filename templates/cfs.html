@@ -2,30 +2,214 @@
 {% block title %} Trang chủ {% endblock %}
 {% block content %}
 <div id="app">
+    
+    <div id="app-content">
+        
+        <div id="create-wrapper">
+            <div id="btn-wrapper">
+                <div id="open-create_btn">
+                    <button type="button" id="create-btn" class="button-53">Tạo lời nhắn</button>
+                </div>
+                <div id="close-create_btn" class="none">
+                    <button type="button" id="create-btn" class="button-53 danger">
+                        <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#clip0_429_11083)"> <path d="M7 7.00006L17 17.0001M7 17.0001L17 7.00006" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0_429_11083"> <rect width="24" height="24" fill="white"></rect> </clipPath> </defs> </g></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="form" class="none">
+                <form action action="{{ url_for('cfs') }}" method='POST'>
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="from" class="label">
+                            <span class="label-title">Gởi từ:</span>
+                            <input required id="from" class="input" name="from" placeholder="Lời nhắn này được gởi đi từ...">
+                        </label>
+                        <label for="to" class="label">
+                            <span class="label-title">Gởi tới:</span>
+                            <input required id="to" class="input" name="to" placeholder="Lới nhắn này gởi tới...">
+                        </label>
 
-    {% for post in posts %}
-    <div>
-        <h3>{{ post.to }}</h3>
-        <p>{{ post.content }}</p>
-        <h3>{{ post.author }}</h3>
-    </div>
-    {% endfor %}
+
+                        <label for="content" class="label">
+                            <span class="label-title">Nội dung:</span>
+                            <textarea required rows="4" id="content" class="input" name="content" placeholder="Nội dung lời nhắn..."></textarea>
+                        </label>
 
 
-    <button type="button">Tạo lời nhắn!!!</button>
-
-    <form action action="{{ url_for('cfs') }}" method='POST'>
-        <div style="display: flex; flex-direction: column;">
-            <label for="from">Từ:</label>
-            <input type="text" id="from" name="from" value="">
-            <label for="to">Gởi đến:</label>
-            <input type="text" id="to" name="to" value="">
-            <label for="content">Nhập nội dung:</label>
-            <textarea id="content" name="content"></textarea>
-            <div>
-                <button type="submit">Tạo</button>
+                        <div>
+                            <button class="button-53" type="submit">Tạo lời nhắn</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
+       
+        
+
+       
+        <div id="posts">
+            
+
+            {% for post in posts %}
+            <div class="post animate__animated animate__fadeInUp">
+        
+                <div class="to">
+                    <h3>Gởi tới:</h3>
+                    <p>{{ post.to }}</p>
+                </div>
+                <div class="post-line"></div>
+                <div class="content">
+                    <p>{{ post.content }}</p>
+                </div>
+                <div class="post-line"></div>
+                <div class="from">
+                    <h3>Từ:</h3>
+                    <p>{{ post.author }}</p>
+                </div>
+                
+            </div>
+            {% endfor %}
+    
+        </div>
+    
+
+    </div>
+
+    <style>
+
+        
+        #app {
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+
+            padding: 64px 0px;
+        }
+
+
+        #app-content {
+            height: fit-content;
+
+            border-radius: 24px;
+        }
+
+
+        .post-line {
+            width: 80%;
+            height: 4px;
+            border-radius: 4px;
+            margin: 28px auto;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        #posts {
+            display: flex;
+            flex-direction: column;
+            margin: 0 128px;
+        }
+        
+        .post {
+            max-width: 80%;
+            width: 60%;
+            padding: 24px 32px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);         
+        }
+
+        .post > .to,
+        .post > .from {
+            display: flex;
+            flex: row;
+            align-items: flex-end;
+
+            font-size: 18px;
+        }
+
+
+        .post > .to > p,
+        .post > .from > p {
+            font-style: italic;
+        }
+
+        .post > .from {
+            display: flex;
+            justify-content: right;
+        }
+
+        .post > .content {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .post h3 {
+            font-size: 18px;
+            margin-right: 6px;
+        }
+
+
+        #form {
+            /* display: none; */
+            width: 100%;
+        }
+
+
+        #create-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 24px 64px;
+        }
+
+        #create-wrapper #btn-wrapper {
+            margin-bottom: 24px;
+        }
+        
+        #form {
+            width: 60%;
+            max-width: 100%;
+        }
+
+        #form label {
+            margin-bottom: 20px;
+        }
+
+
+    </style>
+
+    <script>
+        createForm = document.getElementById('form')
+        openCreate__Btn = document.getElementById('open-create_btn')
+        closeCreate__Btn = document.getElementById('close-create_btn')
+        openCreate__Btn.addEventListener('click', ()=>{
+            createForm.classList.remove('none')
+            animateCSS2(createForm, 'animate__fadeInRight', ()=>{
+
+                animateCSS2(openCreate__Btn, 'animate__bounceOut', ()=>{
+                    openCreate__Btn.classList.add('none')
+                    closeCreate__Btn.classList.remove('none')
+                    animateCSS(closeCreate__Btn, 'animate__bounceIn')
+                })
+
+            })
+        })
+
+        closeCreate__Btn.addEventListener('click', ()=>{
+            animateCSS2(createForm, 'animate__fadeOutLeft', ()=>{
+                createForm.classList.add('none')
+
+                animateCSS2(closeCreate__Btn, 'animate__bounceOut', ()=>{
+                    openCreate__Btn.classList.remove('none')
+                    closeCreate__Btn.classList.add('none')
+                    animateCSS(openCreate__Btn, 'animate__bounceIn')
+                })
+
+            })
+        })
+    </script>
+
 </div>
 {% endblock %}

@@ -24,7 +24,31 @@ const animateCSS = (obj, animation, prefix = '') =>
 
         node.addEventListener('animationend', handleAnimationEnd, {once: true});
 });
+
+const animateCSS2 = (obj, animation, f) => {
+    obj.classList.add('animate__animated')
+    obj.classList.add(animation)
+    obj.addEventListener('animationend', ()=>{
+        f();
+        obj.classList.remove('animate__animated')
+        obj.classList.remove(animation)
+    }, { once: true })
+};
+
+
 //
+
+flashes = document.querySelectorAll('.flash')
+flashes.forEach(function (obj, index) {
+    animateCSS(obj, "animate__fadeInLeftBig")
+    obj.addEventListener('click', (e)=>{
+        animateCSS2(obj, "animate__fadeOutLeftBig", ()=>{
+            obj.remove()
+        })
+    })
+})
+
+
 
 //moveable element
 var DragAndMoveObjs = document.querySelectorAll(".drag-move");
@@ -76,8 +100,8 @@ Clouds.forEach(function (obj, index) {
     // obj.style.left = rd(20, innerWidth - 400) + 'px'
     // obj.style.top = rd(20, innerHeight - 180) + 'px'
 
-    obj.addEventListener('click', ()=>{
-        animateCSS(obj, 'animate__swing')
+    obj.addEventListener('mousedown', ()=>{
+        animateCSS(obj, 'animate__rubberBand')
     })
 
 })
